@@ -33,7 +33,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        gr.uoa.di.rdf.geordfbench.createlubmworkload.WorkloadUtil
+                                        gr.uoa.di.rdf.geordfbench.sample.specification.LUBMWorkloadUtil
                                     </mainClass>
                                 </manifest>
                             </archive>
