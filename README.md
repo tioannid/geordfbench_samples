@@ -1,7 +1,8 @@
 # GeoRDFBench Framework - Samples
 > Samples for using the GeoRDFBench Runtime API
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13120112.svg)](https://doi.org/10.5281/zenodo.13120112)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13240251.svg)](https://doi.org/10.5281/zenodo.13240251)
+
 
 ## A. Using the GeoRDFBench JSON Generator API 
 
