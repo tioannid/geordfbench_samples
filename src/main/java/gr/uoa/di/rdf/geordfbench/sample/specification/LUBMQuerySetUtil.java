@@ -1,15 +1,11 @@
 package gr.uoa.di.rdf.geordfbench.sample.specification;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
-import gr.uoa.di.rdf.Geographica3.runtime.datasets.complex.impl.GeographicaDS;
-import gr.uoa.di.rdf.Geographica3.runtime.datasets.simple.impl.GenericGeospatialSimpleDS;
-import gr.uoa.di.rdf.Geographica3.runtime.executionspecs.impl.SimpleES;
-import gr.uoa.di.rdf.Geographica3.runtime.querysets.partofworkload.impl.StaticTempParamQS;
+import gr.uoa.di.rdf.Geographica3.runtime.querysets.complex.IQuerySet;
+import gr.uoa.di.rdf.Geographica3.runtime.querysets.complex.impl.StaticTempParamQS;
 import gr.uoa.di.rdf.Geographica3.runtime.querysets.simple.IQuery;
 import gr.uoa.di.rdf.Geographica3.runtime.querysets.simple.impl.SimpleQuery;
-import gr.uoa.di.rdf.Geographica3.runtime.workloadspecs.IGeospatialWorkLoadSpec;
-import gr.uoa.di.rdf.Geographica3.runtime.workloadspecs.impl.SimpleGeospatialWL;
-import gr.uoa.di.rdf.Geographica3.runtime.workloadspecs.util.WorkLoadSpecUtil;
+import gr.uoa.di.rdf.Geographica3.runtime.querysets.util.QuerySetUtil;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,43 +13,22 @@ import org.apache.log4j.Logger;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import java.nio.file.Paths;
 
-public class LUBMWorkloadUtil {
+public class LUBMQuerySetUtil {
 
     // --- Static members -----------------------------
     static Logger logger
-            = Logger.getLogger(LUBMWorkloadUtil.class.getSimpleName());
-    static final String LUBM_1_0_JSONDEF_FILE = "LUBM_1_0_WL_GOLD_STANDARD.json";
+            = Logger.getLogger(LUBMQuerySetUtil.class.getSimpleName());
+    static final String LUBM_1_0_JSONDEF_FILE = "LUBM_1_0QS_GOLD_STANDARD.json";
     static final String NTRIPLES_STR = RDFFormat.NTRIPLES.getName().toUpperCase();
 
     // --- Methods -----------------------------------
     /**
-     * Creates the JSON definition file for the LUBM(1, 0) workload in
-     * ./json_defs/workloads/LUBM_1_0_WLoriginal_GOLD_STANDARD.json
+     * Creates the JSON definition file for the LUBM(1, 0) queryset in
+     * ./json_defs/querysets/LUBM_1_0_WLoriginal_GOLD_STANDARD.json
      *
      */
     public static void createLUBM_1_0_OriginalJSONDefFile(String outputDir) {
-        // 1. Create the simple dataset spec
-        GenericGeospatialSimpleDS sds
-                = new GenericGeospatialSimpleDS("lubm-1_0",
-                        "1_0",
-                        "lubm-1_0.nt", NTRIPLES_STR);
-        // No need for dataset prefix
-        //sds.addUsefulNamespacePrefix("somepref", "<http://lubm_1_0/prefix>");
-        // No need for geospatial properties, since LUBM is not geospatial
-        //sds.addAsWKT("asWKT", "<http://lubm_1_0/asWKT>");
-        //sds.addHasGeometry("hasGeometry", "<http://lubm_1_0/hasGeometry>");
-
-        // 2. Create a complex dataset spec (collection of one or more simple dataset specs)
-        GeographicaDS lubm_ds
-                = new GeographicaDS();
-        lubm_ds.setName("lubm-1_0");
-        lubm_ds.setRelativeBaseDir("LUBM");
-        lubm_ds.setN(1);
-        lubm_ds.addSimpleGeospatialDataSet(sds);
-        // no context, use default graph
-        lubm_ds.addSimpleGeospatialDataSetContext("lubm-1_0", "");
-
-        // 3. Create a queryset spec
+        // 1. Create a queryset spec
         Map<String, String> mapTemplateParams = new HashMap<>();
         Map<String, String> mapUsefulNamespacePrefixes = new HashMap<>();
         mapUsefulNamespacePrefixes.put("ub", "<https://swat.cse.lehigh.edu/onto/univ-bench.owl#>");
@@ -111,7 +86,7 @@ public class LUBMWorkloadUtil {
                 + "} \n",
                 false,
                 8330));
-        mapQry.put(6, new SimpleQuery("Q7_All_Students_Courses_AssProfessor0",                      
+        mapQry.put(6, new SimpleQuery("Q7_All_Students_Courses_AssProfessor0",
                 "SELECT ?x ?y WHERE {\n"
                 + "  ?x rdf:type ub:Student .\n"
                 + "  ?y rdf:type ub:Course .\n"
@@ -177,15 +152,19 @@ public class LUBMWorkloadUtil {
                 + "} \n",
                 false,
                 5916));
-        
-        StaticTempParamQS lubm_qs = new StaticTempParamQS(SimpleES.newMicroES(), "lubm-1_0", "", false, mapQry,
-                mapTemplateParams, mapUsefulNamespacePrefixes,
-                mapLiteralValues);
-        SimpleGeospatialWL swl = new SimpleGeospatialWL("LUBM-1_0", "",
-                lubm_ds,
-                lubm_qs);
+
+        StaticTempParamQS lubm_qs
+                = new StaticTempParamQS(
+                        "lubm-1_0", // queryset name
+                        "", // relative base dir
+                        false, // does not have predicate queries
+                        mapQry, // map of simple queries
+                        mapTemplateParams, // map of template params
+                        mapUsefulNamespacePrefixes, // map of useful prefixes
+                        mapLiteralValues // map of values for template params 
+                );
         try {
-            swl.serializeToJSON(Paths.get(outputDir, LUBM_1_0_JSONDEF_FILE).toFile());
+            lubm_qs.serializeToJSON(Paths.get(outputDir, LUBM_1_0_JSONDEF_FILE).toFile());
         } catch (JsonMappingException ex) {
             logger.error(ex.getMessage());
         } catch (IOException ex) {
@@ -198,15 +177,14 @@ public class LUBMWorkloadUtil {
         if (args.length != 1) {
             logger.info("Arguments not correct");
             logger.info("Arguments: " + args);
-            logger.info("Usage: " + LUBMWorkloadUtil.class.getSimpleName() + " <JSON spec output path>");
+            logger.info("Usage: " + LUBMQuerySetUtil.class.getSimpleName() + " <JSON spec output path>");
             System.exit(-1);
         }
         String outputDir = args[0];
+        // LUBM(0, 1) Queryset
+        LUBMQuerySetUtil.createLUBM_1_0_OriginalJSONDefFile(outputDir);
         String outputFile = Paths.get(outputDir, LUBM_1_0_JSONDEF_FILE).toString();
-        // LUBM(0, 1) Workload
-        LUBMWorkloadUtil.createLUBM_1_0_OriginalJSONDefFile(outputDir);
-        IGeospatialWorkLoadSpec lubm1_0WLS
-                = WorkLoadSpecUtil.deserializeFromJSON(outputFile);
-        logger.info(lubm1_0WLS.serializeToJSON());
+        IQuerySet qs = QuerySetUtil.deserializeFromJSON(outputFile);
+        logger.info(qs.serializeToJSON());
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mycompany</groupId>
-    <artifactId>createLUBMworkload</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>gr.uoa.di.rdf</groupId>
+    <artifactId>geordfbench-samples</artifactId>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -17,6 +17,80 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
+    <profiles>
+        <profile>
+            <!-- Use local VM Sonatype OSS -->
+            <id>localvm</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>strabon.snapshot</id>
+                    <name>Strabon - maven repository - snapshots</name>
+                    <url>http://localhost:9081/repository/UoASnapshots/</url>
+                </repository>
+                <repository>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>strabon.release</id>
+                    <name>Strabon - maven repository - releases</name>
+                    <url>http://localhost:9081/repository/UoAReleases/</url>
+                </repository>
+            </repositories>
+            <distributionManagement>
+                <repository>
+                    <id>strabon.release</id>
+                    <name>Strabon maven repo</name>
+                    <url>http://localhost:9081/repository/UoAReleases/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>strabon.snapshot</id>
+                    <name>Strabon maven repo</name>
+                    <url>http://localhost:9081/repository/UoASnapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>official</id>
+            <repositories>
+                <repository>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>strabon.snapshot</id>
+                    <name>Strabon - maven repository - snapshots</name>
+                    <url>http://maven.strabon.di.uoa.gr/content/repositories/snapshots</url>
+                </repository>
+            </repositories>
+            <distributionManagement>
+                <repository>
+                    <id>strabon</id>
+                    <name>Strabon maven repo</name>
+                    <url>http://maven.strabon.di.uoa.gr/content/repositories/releases</url>
+                </repository>
+                <snapshotRepository>
+                    <id>strabon.snapshot</id>
+                    <name>Strabon maven repo</name>
+                    <url>http://maven.strabon.di.uoa.gr/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
     
     <build>
         <plugins>
