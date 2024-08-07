@@ -25,7 +25,7 @@ PWD=`pwd`
 echo "PWD = $PWD"
 
 # move to the build directory
-cd ../target
+cd ${BASE}/../target
 
 MAIN_JAR="geordfbench-samples-1.1.0-jar-with-dependencies.jar"
 
