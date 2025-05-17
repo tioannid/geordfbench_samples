@@ -1,11 +1,11 @@
 package gr.uoa.di.rdf.geordfbench.sample.specification;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
-import gr.uoa.di.rdf.Geographica3.runtime.querysets.complex.IQuerySet;
-import gr.uoa.di.rdf.Geographica3.runtime.querysets.complex.impl.StaticTempParamQS;
-import gr.uoa.di.rdf.Geographica3.runtime.querysets.simple.IQuery;
-import gr.uoa.di.rdf.Geographica3.runtime.querysets.simple.impl.SimpleQuery;
-import gr.uoa.di.rdf.Geographica3.runtime.querysets.util.QuerySetUtil;
+import gr.uoa.di.rdf.geordfbench.runtime.querysets.complex.IQuerySet;
+import gr.uoa.di.rdf.geordfbench.runtime.querysets.complex.impl.StaticTempParamQS;
+import gr.uoa.di.rdf.geordfbench.runtime.querysets.simple.IQuery;
+import gr.uoa.di.rdf.geordfbench.runtime.querysets.simple.impl.SimpleQuery;
+import gr.uoa.di.rdf.geordfbench.runtime.querysets.util.QuerySetUtil;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

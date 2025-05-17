@@ -1,10 +1,10 @@
 package gr.uoa.di.rdf.geordfbench.sample.specification;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
-import gr.uoa.di.rdf.Geographica3.runtime.datasets.complex.IGeospatialDataSet;
-import gr.uoa.di.rdf.Geographica3.runtime.datasets.complex.impl.GeographicaDS;
-import gr.uoa.di.rdf.Geographica3.runtime.datasets.simple.impl.GenericGeospatialSimpleDS;
-import gr.uoa.di.rdf.Geographica3.runtime.datasets.util.DataSetUtil;
+import gr.uoa.di.rdf.geordfbench.runtime.datasets.complex.IGeospatialDataSet;
+import gr.uoa.di.rdf.geordfbench.runtime.datasets.complex.impl.GeographicaDS;
+import gr.uoa.di.rdf.geordfbench.runtime.datasets.simple.impl.GenericGeospatialSimpleDS;
+import gr.uoa.di.rdf.geordfbench.runtime.datasets.util.DataSetUtil;
 import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.eclipse.rdf4j.rio.RDFFormat;

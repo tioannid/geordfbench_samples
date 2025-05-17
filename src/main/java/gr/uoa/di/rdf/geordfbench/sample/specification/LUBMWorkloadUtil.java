@@ -1,15 +1,15 @@
 package gr.uoa.di.rdf.geordfbench.sample.specification;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
-import gr.uoa.di.rdf.Geographica3.runtime.datasets.complex.impl.GeographicaDS;
-import gr.uoa.di.rdf.Geographica3.runtime.datasets.simple.impl.GenericGeospatialSimpleDS;
-import gr.uoa.di.rdf.Geographica3.runtime.executionspecs.impl.SimpleES;
-import gr.uoa.di.rdf.Geographica3.runtime.querysets.partofworkload.impl.StaticTempParamQS;
-import gr.uoa.di.rdf.Geographica3.runtime.querysets.simple.IQuery;
-import gr.uoa.di.rdf.Geographica3.runtime.querysets.simple.impl.SimpleQuery;
-import gr.uoa.di.rdf.Geographica3.runtime.workloadspecs.IGeospatialWorkLoadSpec;
-import gr.uoa.di.rdf.Geographica3.runtime.workloadspecs.impl.SimpleGeospatialWL;
-import gr.uoa.di.rdf.Geographica3.runtime.workloadspecs.util.WorkLoadSpecUtil;
+import gr.uoa.di.rdf.geordfbench.runtime.datasets.complex.impl.GeographicaDS;
+import gr.uoa.di.rdf.geordfbench.runtime.datasets.simple.impl.GenericGeospatialSimpleDS;
+import gr.uoa.di.rdf.geordfbench.runtime.executionspecs.impl.SimpleES;
+import gr.uoa.di.rdf.geordfbench.runtime.querysets.partofworkload.impl.StaticTempParamQS;
+import gr.uoa.di.rdf.geordfbench.runtime.querysets.simple.IQuery;
+import gr.uoa.di.rdf.geordfbench.runtime.querysets.simple.impl.SimpleQuery;
+import gr.uoa.di.rdf.geordfbench.runtime.workloadspecs.IGeospatialWorkLoadSpec;
+import gr.uoa.di.rdf.geordfbench.runtime.workloadspecs.impl.SimpleGeospatialWL;
+import gr.uoa.di.rdf.geordfbench.runtime.workloadspecs.util.WorkLoadSpecUtil;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

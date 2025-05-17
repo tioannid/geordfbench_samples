@@ -27,7 +27,7 @@ echo "PWD = $PWD"
 # move to the build directory
 cd ${BASE}/../target
 
-MAIN_JAR="geordfbench-samples-1.1.0-jar-with-dependencies.jar"
+MAIN_JAR="geordfbench-samples-2.0.0-SNAPSHOT-jar-with-dependencies.jar"
 
 # generate the LUBM(1, 0) workload specification
 WORKLOAD_SPEC_DIR="${OUTPUT_SPEC_DIR}/workloads"
